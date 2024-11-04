@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import EmployeeCard from './components/EmployeeCard';
 
 const sampleEmployee = {
@@ -12,14 +13,27 @@ const sampleEmployee = {
 };
 
 
+
+
 function App() {
   const [employee, setEmployee] = useState(sampleEmployee);
+  
+  const getEmployee = () => {
+  fetch("https://randomuser.me/api?nat=en")
+    .then((response) => response.json())
+    .then((data) => {
+      setEmployee(data.results[0]);
+    });
+};
 
   return (
     <div className='App'>
-      <EmployeeCard employee={sampleEmployee} />
+      <EmployeeCard employee={employee} />
+      <button type="button" onClick={getEmployee}>Get employee</button>
     </div>
   );
 }
+
+
 
 export default App
